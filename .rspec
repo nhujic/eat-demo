@@ -1,0 +1,4 @@
+--require ./lib/init_rspec
+-fd
+--format documentation
+--color

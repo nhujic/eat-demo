@@ -1,4 +1,4 @@
-shared_context 'Booking reservation' do |booking_data|
+shared_context 'Booking reservation' do |booking_data, confirmation_data|
   let(:booking_page) { @main.goto_booking_page }
 
   first_name = booking_data['first_name']
@@ -35,6 +35,7 @@ shared_context 'Booking reservation' do |booking_data|
       booking_page.provide_phone(phone)
     end
 
+    #special request is not mandatory field
     if special_requests
       it 'provides special request' do
         booking_page.provide_special_requests(special_requests)
@@ -42,9 +43,11 @@ shared_context 'Booking reservation' do |booking_data|
     end
   end
 
-  context 'Go to the Booking page' do
-    it 'clicks on Continue' do
+  context 'Go to the Confirmation page' do
+    it 'clicks on Reserve' do
       booking_page.click_on_reserve_button
     end
   end
+
+  include_context 'Booking confirmation', confirmation_data
 end

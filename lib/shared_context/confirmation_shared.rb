@@ -13,12 +13,14 @@ shared_context 'Booking confirmation' do |data|
   end
 
   context 'Check reservation data' do
+    #Based on selected date (if validation message exist) check that Date is available in details (today or tomorrow date)
     it "checks that reservation date is #{today_date} or #{tomorrow_date}" do
-      expect(confirmation_page.reservation_date.text).to include(today_date) or expect(confirmation_page.reservation_date.text).to include(tomorrow_date)
+      expect(confirmation_page.reservation_date.text).to include(today_date) .or include(tomorrow_date)
     end
 
-    it "checks that reservation number of guest is equal to #{guests}" do
-      expect(confirmation_page.number_of_guests.text).to include("#{guests} guests")
+    #If provided number of guests is not available to be selected the 2 as an option will be selected
+    it "checks that reservation number of guest is equal to #{guests} or 2" do
+      expect(confirmation_page.number_of_guests.text).to include("#{guests} guests") .or include('2 guests')
     end
   end
 

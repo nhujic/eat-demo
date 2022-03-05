@@ -15,7 +15,5 @@ describe 'Eat Demo Restaurant Reservation' do
                                          }
                      }
 
-  include_context 'Search table', reservation_data['search_table_data']
-  include_context 'Booking reservation', reservation_data['booking_data']
-  include_context 'Booking confirmation', reservation_data['search_table_data']
+  include_context 'Make reservation', reservation_data['search_table_data'], reservation_data['booking_data']
 end

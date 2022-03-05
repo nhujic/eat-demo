@@ -1,4 +1,4 @@
-shared_context 'Search table' do |data|
+shared_context 'Make reservation' do |data, reservation_data|
   let(:landing_page) { @main.goto_landing_page }
 
   guests = data['guests']
@@ -11,15 +11,11 @@ shared_context 'Search table' do |data|
 
     it 'selects the date' do
       landing_page.select_the_date(date)
-      sleep 2
     end
   end
 
   context 'Select time' do
     it 'selects first available time' do
-      if landing_page.validation_message.exist?
-        landing_page.open_next_available_date_section
-      end
       landing_page.select_time
     end
   end
@@ -29,4 +25,6 @@ shared_context 'Search table' do |data|
       landing_page.click_on_continue_button
     end
   end
+
+  include_context 'Booking reservation', reservation_data, data
 end
