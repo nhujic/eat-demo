@@ -31,6 +31,14 @@ class BookingPage < Main
     @browser.div(text: 'Reservation details')
   end
 
+  def reservation_date
+    @browser.section(id: 'search').div(class: 'mb-1', index: 0)
+  end
+
+  def number_of_guests
+    @browser.section(id: 'search').div(class: 'mb-1', index: 1)
+  end
+
   private
 
   def first_name

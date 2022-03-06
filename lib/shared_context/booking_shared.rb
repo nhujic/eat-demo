@@ -8,9 +8,24 @@ shared_context 'Booking reservation' do |booking_data, confirmation_data|
   phone = booking_data['phone']
   special_requests = booking_data['special_request']
 
+  guests = confirmation_data['guests']
+  today_date = Time.now.strftime('%A, %B %-d')
+  tomorrow = Time.now + (60 * 60 * 24)
+  tomorrow_date = tomorrow.strftime('%A, %B %-d')
+
   context 'Check Reservation details section exist' do
     it 'expects Resevation details exist' do
       booking_page.reservation_details_section.wait_until(&:present?)
+    end
+
+    #Based on selected date (if validation message exist) check that Date is available in details (today or tomorrow date)
+    it "checks that reservation date is #{today_date} or #{tomorrow_date}" do
+      expect(booking_page.reservation_date.text).to include(today_date) .or include(tomorrow_date)
+    end
+
+    #If provided number of guests is not available to be selected the 2 as an option will be selected
+    it "checks that reservation number of guest is equal to #{guests} or 2" do
+      expect(booking_page.number_of_guests.text).to include("#{guests} guests") .or include('2 guests')
     end
   end
 
