@@ -81,3 +81,10 @@ ChromeDriver 99.0.4844.51 (d537ec02474b5afe23684e7963d538896c63ac77-refs/branch-
 ###### Chrome version
 It is recommended to use Chrome versions that are marked as stable in combination with RSpec, Watir and Chromedriver. Currently, Chrome v. 99.0 is used to run test scripts. 
 
+### Run script
+
+Go to the eat-demo folder and run script with following command
+```
+cd $EAT_DEMO_HOME
+rspec spec/eatapp_smoke.rb
+```
