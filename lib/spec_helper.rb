@@ -1,9 +1,6 @@
 require 'rspec'
 require 'watir'
 require 'require_all'
-require 'rubygems'
-require 'rubygems/package'
-require 'selenium-webdriver'
 
 begin
   require_all './lib/'
