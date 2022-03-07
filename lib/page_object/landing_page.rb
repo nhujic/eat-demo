@@ -26,9 +26,9 @@ class LandingPage < Main
       open_next_available_date_section
     end
     list_of_available_timeslots = get_available_timeslots
-    @time = timeslot_label(list_of_available_timeslots[0]).text
+    time = timeslot_label(list_of_available_timeslots[0]).text
     timeslot(list_of_available_timeslots[0]).fire_event :click
-    @time
+    time
   end
 
   def click_on_continue_button
