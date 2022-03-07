@@ -3,7 +3,7 @@ class ConfirmationPage < Main
     @browser.span(text: 'Reservation confirmed!')
   end
 
-  def reservation_date
+  def reservation_date_time
     @browser.section(id: 'confirmation').div.span(index: 1)
   end
 

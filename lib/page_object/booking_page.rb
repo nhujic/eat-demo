@@ -31,7 +31,7 @@ class BookingPage < Main
     @browser.div(text: 'Reservation details')
   end
 
-  def reservation_date
+  def reservation_date_time
     @browser.section(id: 'search').div(class: 'mb-1', index: 0)
   end
 
