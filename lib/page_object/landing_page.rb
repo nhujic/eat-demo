@@ -20,12 +20,15 @@ class LandingPage < Main
   #Check if validaton message `We do not have any slots available for given criteria, please look below to view the next available date` exist
   #If message exist script open section below
   #In this method is also called get_available_timeslots method. From the generated array first available timeslot is selected.
+  #Also this method returns global variable that represents selected time value. That value will be used to check selected time in reserevation details
   def select_time
     if validation_message.exist?
       open_next_available_date_section
     end
     list_of_available_timeslots = get_available_timeslots
+    @time = timeslot_label(list_of_available_timeslots[0]).text
     timeslot(list_of_available_timeslots[0]).fire_event :click
+    @time
   end
 
   def click_on_continue_button
@@ -54,10 +57,6 @@ class LandingPage < Main
     @browser.div(class: 'timeslots')
   end
 
-  def timeslot(time)
-    @browser.element(xpath: "//div[contains(@class, 'timeslots')]/div[label[text() = '#{time}']]/input")
-  end
-
   #This method get the list of available options that can be select as a number of guests
   def get_guests_options
     option_array = Array.new
@@ -80,6 +79,14 @@ class LandingPage < Main
     end
 
     available_timeslots
+  end
+
+  def timeslot(time)
+    @browser.element(xpath: "//div[contains(@class, 'timeslots')]/div[label[text() = '#{time}']]/input")
+  end
+
+  def timeslot_label(time)
+    @browser.element(xpath: "//div[contains(@class, 'timeslots')]/div/label[text() = '#{time}']")
   end
 
   def continue_button

@@ -1,4 +1,4 @@
-shared_context 'Booking reservation' do |booking_data, confirmation_data|
+shared_context 'Booking reservation' do |booking_data, confirmation_data, selected_time|
   let(:booking_page) { @main.goto_booking_page }
 
   first_name = booking_data['first_name']
@@ -20,7 +20,12 @@ shared_context 'Booking reservation' do |booking_data, confirmation_data|
 
     #Based on selected date (if validation message exist) check that Date is available in details (today or tomorrow date)
     it "checks that reservation date is #{today_date} or #{tomorrow_date}" do
-      expect(booking_page.reservation_date.text).to include(today_date) .or include(tomorrow_date)
+      expect(booking_page.reservation_date_time.text).to include(today_date) .or include(tomorrow_date)
+    end
+
+    it 'checks that reservation time is equal to selected time' do
+      time = selected_time.time.swapcase.gsub(/\s+/, '')
+      expect(booking_page.reservation_date_time.text).to include(time)
     end
 
     #If provided number of guests is not available to be selected the 2 as an option will be selected
@@ -64,5 +69,5 @@ shared_context 'Booking reservation' do |booking_data, confirmation_data|
     end
   end
 
-  include_context 'Booking confirmation', confirmation_data
+  include_context 'Booking confirmation', confirmation_data, selected_time
 end

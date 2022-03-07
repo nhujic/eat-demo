@@ -1,5 +1,6 @@
 shared_context 'Make reservation' do |data, reservation_data|
   let(:landing_page) { @main.goto_landing_page }
+  make_reservation = Variables.new
 
   guests = data['guests']
   date = data['date']
@@ -15,8 +16,8 @@ shared_context 'Make reservation' do |data, reservation_data|
   end
 
   context 'Select time' do
-    it 'selects first available time' do
-      landing_page.select_time
+    it 'selects first available time and get selected time value' do
+      make_reservation.time = landing_page.select_time
     end
   end
 
@@ -26,5 +27,5 @@ shared_context 'Make reservation' do |data, reservation_data|
     end
   end
 
-  include_context 'Booking reservation', reservation_data, data
+  include_context 'Booking reservation', reservation_data, data, make_reservation
 end
